@@ -1,16 +1,19 @@
 const express = require('express')
-const app = express()
-const dotenv = require('dotenv')
-dotenv.config()
+const cors = require('cors');
 const Router = require('./Routes/route');
-app.use(express.json());
+require('dotenv').config();
 
-const cors = require('cors')
+const app = express()
+
+app.use(express.json());
 app.use(cors({
     origin: "*"
 }))
 
-app.use('/api', Router)
-app.listen(process.env.PORT, () => {
-    console.log(`App listening on port:${process.env.PORT}`);
-})
+app.use(Router)
+
+app.get('/', (req, res) => res.send('Hello World!'))
+
+app.listen(process.env.PORT)
+
+console.log(`Example app listening on port ${process.env.PORT}!`)
